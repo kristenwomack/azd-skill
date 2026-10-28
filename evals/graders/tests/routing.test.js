@@ -10,14 +10,49 @@ const read = (name) => fs.readFileSync(new URL(name, skill), "utf8");
 describe("azd router and workflow boundaries", () => {
   it("keeps the entry point thin, named azd, and routes to all four on-demand references", () => {
     const text = read("SKILL.md");
-    const frontmatter = YAML.parse(text.split("---")[1]);
+    const rawFrontmatter = text.split("---")[1];
+    const frontmatter = YAML.parse(rawFrontmatter);
     assert.equal(frontmatter.name, "azd");
-    assert.ok(text.length / 4 < 1000, "entry point exceeds approximate token budget");
+    assert.match(rawFrontmatter, /^description: ".+"$/m);
+    assert.ok(frontmatter.description.split(/\s+/).length <= 60);
+    assert.match(frontmatter.description, /WHEN: ".+"/);
+    assert.ok(text.length / 4 < 500, "entry point exceeds approximate 500-token budget");
+    assert.match(text, /Example:.*read-only findings/s);
     assert.match(text, /Load only the selected workflow/);
     assert.doesNotMatch(text, /policy\/publication-catalog/);
     for (const workflow of ["build", "operate", "check", "publish"]) {
       assert.ok(text.includes(`references/${workflow}.md`));
       assert.ok(read(`references/${workflow}.md`).length / 4 < 1000, `${workflow} exceeds approximate token budget`);
+    }
+  });
+
+  it("resolves every local Markdown link and keeps every reference reachable", () => {
+    const referenceRoot = new URL("references/", skill);
+    const files = fs.readdirSync(referenceRoot).filter((name) => name.endsWith(".md"));
+    const queue = ["SKILL.md"];
+    const visited = new Set();
+    const linkPattern = /\[[^\]]+\]\(([^)]+)\)/g;
+
+    while (queue.length) {
+      const name = queue.pop();
+      if (visited.has(name)) continue;
+      visited.add(name);
+      const text = read(name);
+      for (const [, href] of text.matchAll(linkPattern)) {
+        if (/^(?:https?:|mailto:|#)/i.test(href)) continue;
+        const [target] = href.split("#");
+        const resolved = new URL(target, new URL(name, skill));
+        assert.ok(fs.existsSync(resolved), `${name} links to missing ${href}`);
+        if (target.endsWith(".md")) {
+          const relative = new URL(".", skill).pathname;
+          const targetName = decodeURIComponent(resolved.pathname.slice(relative.length));
+          if (targetName.startsWith("references/")) queue.push(targetName);
+        }
+      }
+    }
+
+    for (const name of files) {
+      assert.ok(visited.has(`references/${name}`), `${name} is orphaned`);
     }
   });
 

@@ -16,62 +16,25 @@ Catalog identity: `azd-publication@5`. See [policy sources and interpretation](p
 
 - [Policy profiles](policy-profiles.md) — core, public preparation/submission, and organization selection.
 - [Organization requirements](organization-policy.md) — inspecting selected existing documents without a new format.
-- [Core azd rules](core-azd-rules.md) — apply to an `azd` template.
+- [Core evaluation terms](core-evaluation-terms.md) — shared evidence and uncertainty terms for core rules.
+- [Core template rules](core-template-rules.md) — root configuration and schema requirements.
+- [Core infrastructure rules](core-infrastructure-rules.md) — scenario assets and documented setup paths.
+- [Core verification rules](core-verification-rules.md) — execution and teardown evidence.
 - [Awesome AZD evaluation terms](awesome-azd-rules.md) — shared definitions for collection rules.
 - [Awesome AZD publication rules](awesome-azd-publication-rules.md) — repository publication requirements.
-- [Awesome AZD submission rules](awesome-azd-submission-rules.md) — gallery, submission, heading, and security requirements.
+- [Awesome AZD governance rules](awesome-azd-governance-rules.md) — required OSS and governance files.
+- [Awesome AZD discoverability rules](awesome-azd-discoverability-rules.md) — repository description and topics.
+- [Awesome AZD validation rules](awesome-azd-validation-rules.md) — reviewable validation evidence.
+- [Awesome AZD metadata rules](awesome-azd-metadata-rules.md) — path-appropriate gallery metadata.
+- [Awesome AZD submission process rules](awesome-azd-submission-process-rules.md) — authorized submission path.
+- [Awesome AZD heading rules](awesome-azd-headings-rules.md) — required README headings.
+- [Awesome AZD security rules](awesome-azd-security-rules.md) — security validation result.
 - [Policy sources and interpretation](policy-sources.md) — provenance and non-enforcing recommendations.
+- [Catalog rule schema](catalog-schema.md) — required fields and catalog structure.
+- [Catalog runtime ownership](rule-runtime.md) — profile selection, reports, and execution payload.
 
-Do not turn descriptive guidance, recommendations, or optional enhancements into failures. Only an active approved rule's explicit requirement and outcome criteria are enforceable.
-
-## Normative language
-
-Catalog modules mirror the requirement layers of the guidance they encode:
-
-- **MUST** — enforceable; expressed here as an active approved rule.
-- **SHOULD** — recommended default; never a compliance failure.
-- **MAY** — optional enhancement; never a compliance failure.
-
-Optional repository assets must not be reported as failures unless a selected active approved rule names them. These include dev container and GitHub Codespaces configuration, checked-in CI/CD pipeline definitions such as an `azure-dev` workflow, end-to-end test suites, and screenshots, demo videos, or architecture diagrams.
-
-## Extensible rule schema
-
-Each bundled rule must define (this is a project-local catalog structure, not an azd or organization-policy standard):
-
-| Field | Required | Meaning |
-|---|---:|---|
-| `id` | yes | Stable unique identifier. |
-| `title` | yes | Short requirement name. |
-| `version` | yes | Rule revision. |
-| `status` | yes | `active`, `inactive`, or `deprecated`. |
-| `policy_kind` | yes | `approved`, `placeholder`, or `example`. |
-| `authority` | yes | Owning policy source or `none` for examples. |
-| `requirement` | yes | Exact normative requirement. |
-| `rationale` | yes | Why the approved rule exists. |
-| `applies_when` | yes | Explicit target conditions; include exclusions. |
-| `evidence` | yes | Read-only locations/fields to inspect. |
-| `pass_when` | yes | Deterministic sufficient condition for pass. |
-| `fail_when` | yes | Deterministic sufficient condition for fail. |
-| `unknown_when` | yes | Missing or ambiguous evidence conditions. |
-| `severity` | yes | Catalog-defined impact label. |
-| `remediation` | yes | Proposed corrective action; never auto-apply. |
-| `references` | yes | Policy citations or an empty list. |
-| `source_revision` | yes | Pinned upstream revision, organization source release, or an explicit live platform-reference designation. |
-| `requirement_kind` | yes | `upstream-guidance` or `platform-constraint`; not a validator default. |
-| `local_evidence_policy` | yes | Locally chosen evidence safeguards, explicitly distinguished from upstream requirements. |
-| `metadata` | no | Extensible owner, tags, dates, or notes map. |
-
-Rules may add fields, but additions cannot weaken authority, evidence, uncertainty, or read-only constraints. Rule order does not imply priority.
-
-## Runtime ownership
-
-Profile/stage selection is defined in [policy-profiles.md](policy-profiles.md);
-organization-source handling in [organization-policy.md](organization-policy.md);
-verdicts and counts in [report-format.md](report-format.md). The catalog supplies
-applicable evidence safeguards with the runtime payload. Source history and
-conflict explanations in [policy-sources.md](policy-sources.md) are on-demand
-documentation, not a required additional read for every audit.
-
-Rule views use short keys (`applies`, `inspect`, `pass`, `fail`, `unknown`) with
-the same meaning as the corresponding schema fields above. `layer` and `stages`
-select core versus public destination rules and preparation versus submission.
+Only active approved requirements are enforceable. MUST requirements are
+enforced; SHOULD and MAY guidance is not. Optional assets—including dev
+containers, CI/CD workflows, test suites, screenshots, and videos—are not
+failures unless a selected rule requires them. See the [rule schema](catalog-schema.md)
+and [runtime ownership](rule-runtime.md) for details.

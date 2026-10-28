@@ -2,10 +2,16 @@
 
 Authority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).
 
-Apply the linked Awesome AZD rule modules only to the explicitly selected `public-awesome-azd` profile:
+Apply these linked rule modules only to the explicitly selected `public-awesome-azd` profile:
 
-- [Publication rules](awesome-azd-publication-rules.md)
-- [Submission rules](awesome-azd-submission-rules.md)
+- [Publication README](awesome-azd-publication-rules.md)
+- [Governance files](awesome-azd-governance-rules.md)
+- [Repository discoverability](awesome-azd-discoverability-rules.md)
+- [Validation evidence](awesome-azd-validation-rules.md)
+- [Gallery metadata](awesome-azd-metadata-rules.md)
+- [Submission process](awesome-azd-submission-process-rules.md)
+- [README headings](awesome-azd-headings-rules.md)
+- [Security validation](awesome-azd-security-rules.md)
 
 Use [policy-profiles.md](policy-profiles.md) to distinguish preparation from an
 in-progress submission. Preparation excludes AZD-AWESOME-006. Never apply these

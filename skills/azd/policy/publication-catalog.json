@@ -17,13 +17,25 @@
   "required_repository_topics": ["azd-templates", "ai-azd-templates"],
   "modules": [
     {
-      "file": "core-azd-rules.md",
-      "introduction": "# Core `azd` Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nAll rules below have `status: active`, `policy_kind: approved`, and `severity: required`.\nSource mappings and local interpretation are defined in [policy-sources.md](policy-sources.md).\n\n## Evaluation terms\n\n- **Template root:** the explicitly selected or documented azd working directory, otherwise the repository root. Paths in these rules are relative to that root. An unresolved or ambiguous root is an evidence gap, not proof of a missing file.\n- **Applicable azd schema:** the machine-readable schema linked by the [platform reference](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/azd-schema), `https://aka.ms/azure.yaml.json`. Record the schema URL (and resolved URL when available), retrieval time, and version or digest when supplied. The Learn page is documentation, not the schema. If the schema cannot be read and no readable validation record identifies it, schema conformance is `UNABLE TO DETERMINE`.\n- **Audited commit:** the target repository commit named in the report. As a local evidence safeguard, execution evidence is fresh only when it identifies that commit. Evidence for another commit or before relevant uncommitted changes does not establish the changed target's result.\n- **Scenario-fit evidence:** readable scenario documentation names the provisioned resource types, the infrastructure path is resolved from `azure.yaml` or its default `infra`, and tracked files under that path declare those resource types. An explicit `infra.path` is not required. Framework-specific equivalents are acceptable. Mapping named types to tracked declarations is a local evidence safeguard; it is not upstream wording. If required evidence cannot be read, infrastructure fit is `UNABLE TO DETERMINE`.\n- When fresh records disagree, a recorded failure takes precedence over a success. When a required file, external record, or authority cannot be read, use the rule's `unknown` outcome; do not infer its contents.",
+      "file": "core-template-rules.md",
+      "introduction": "# Core Template Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nAll rules below have `status: active`, `policy_kind: approved`, and `severity: required`. Source mappings and local interpretation are defined in [policy-sources.md](policy-sources.md); shared terms and evidence handling are in [core-evaluation-terms.md](core-evaluation-terms.md).",
       "rule_ids": [
         "AZD-CORE-001",
-        "AZD-CORE-002",
+        "AZD-CORE-002"
+      ]
+    },
+    {
+      "file": "core-infrastructure-rules.md",
+      "introduction": "# Core Infrastructure Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nAll rules below have `status: active`, `policy_kind: approved`, and `severity: required`. Source mappings and local interpretation are defined in [policy-sources.md](policy-sources.md); shared terms and evidence handling are in [core-evaluation-terms.md](core-evaluation-terms.md).",
+      "rule_ids": [
         "AZD-CORE-003",
-        "AZD-CORE-004",
+        "AZD-CORE-004"
+      ]
+    },
+    {
+      "file": "core-verification-rules.md",
+      "introduction": "# Core Verification Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nAll rules below have `status: active`, `policy_kind: approved`, and `severity: required`. Source mappings and local interpretation are defined in [policy-sources.md](policy-sources.md); shared terms and evidence handling are in [core-evaluation-terms.md](core-evaluation-terms.md).",
+      "rule_ids": [
         "AZD-CORE-005",
         "AZD-CORE-006"
       ]
@@ -32,19 +44,55 @@
       "file": "awesome-azd-publication-rules.md",
       "introduction": "# Awesome AZD Publication Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nApply only to the explicitly selected `public-awesome-azd` profile, in preparation or submission. Interpret defined terms using [awesome-azd-rules.md](awesome-azd-rules.md).",
       "rule_ids": [
-        "AZD-AWESOME-001",
-        "AZD-AWESOME-002",
-        "AZD-AWESOME-003",
+        "AZD-AWESOME-001"
+      ]
+    },
+    {
+      "file": "awesome-azd-governance-rules.md",
+      "introduction": "# Awesome AZD Governance Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nApply only to the explicitly selected `public-awesome-azd` profile, in preparation or submission. Interpret defined terms using [awesome-azd-rules.md](awesome-azd-rules.md).",
+      "rule_ids": [
+        "AZD-AWESOME-002"
+      ]
+    },
+    {
+      "file": "awesome-azd-discoverability-rules.md",
+      "introduction": "# Awesome AZD Discoverability Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nApply only to the explicitly selected `public-awesome-azd` profile, in preparation or submission. Interpret defined terms using [awesome-azd-rules.md](awesome-azd-rules.md).",
+      "rule_ids": [
+        "AZD-AWESOME-003"
+      ]
+    },
+    {
+      "file": "awesome-azd-validation-rules.md",
+      "introduction": "# Awesome AZD Validation Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nApply only to the explicitly selected `public-awesome-azd` profile, in preparation or submission. Interpret defined terms using [awesome-azd-rules.md](awesome-azd-rules.md).",
+      "rule_ids": [
         "AZD-AWESOME-004"
       ]
     },
     {
-      "file": "awesome-azd-submission-rules.md",
-      "introduction": "# Awesome AZD Submission Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nApply only to the explicitly selected `public-awesome-azd` profile. Preparation excludes AZD-AWESOME-006. Interpret defined terms using [awesome-azd-rules.md](awesome-azd-rules.md).",
+      "file": "awesome-azd-metadata-rules.md",
+      "introduction": "# Awesome AZD Metadata Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nApply only to the explicitly selected `public-awesome-azd` profile. Preparation excludes AZD-AWESOME-006. Interpret defined terms using [awesome-azd-rules.md](awesome-azd-rules.md).",
       "rule_ids": [
-        "AZD-AWESOME-005",
-        "AZD-AWESOME-006",
-        "AZD-AWESOME-007",
+        "AZD-AWESOME-005"
+      ]
+    },
+    {
+      "file": "awesome-azd-submission-process-rules.md",
+      "introduction": "# Awesome AZD Submission Process Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nApply only to the explicitly selected `public-awesome-azd` profile and submission stage. Interpret defined terms using [awesome-azd-rules.md](awesome-azd-rules.md).",
+      "rule_ids": [
+        "AZD-AWESOME-006"
+      ]
+    },
+    {
+      "file": "awesome-azd-headings-rules.md",
+      "introduction": "# Awesome AZD Heading Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nApply only to the explicitly selected `public-awesome-azd` profile, in preparation or submission. Interpret defined terms using [awesome-azd-rules.md](awesome-azd-rules.md).",
+      "rule_ids": [
+        "AZD-AWESOME-007"
+      ]
+    },
+    {
+      "file": "awesome-azd-security-rules.md",
+      "introduction": "# Awesome AZD Security Rules\n\nAuthority: this repository-owned rule module, as indexed by [compliance-rules.md](compliance-rules.md).\n\nApply only to the explicitly selected `public-awesome-azd` profile, in preparation or submission. Interpret defined terms using [awesome-azd-rules.md](awesome-azd-rules.md).",
+      "rule_ids": [
         "AZD-AWESOME-008"
       ]
     }

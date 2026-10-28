@@ -12,7 +12,19 @@ import { checkPublication, REQUIRED_HEADINGS, GOVERNANCE_FILES } from "../../../
 const REFERENCES = path.join(REPO_ROOT, "skills", "azd", "references");
 const REVISION = "22de60335bd77269a2e952cd0e3e8fab56ed4aa1";
 const SUBMISSION_REVISION = "c463284b7c756047e8732832f0ca65b85e37f24e";
-const MODULES = ["core-azd-rules.md", "awesome-azd-publication-rules.md", "awesome-azd-submission-rules.md"];
+const MODULES = [
+  "core-template-rules.md",
+  "core-infrastructure-rules.md",
+  "core-verification-rules.md",
+  "awesome-azd-publication-rules.md",
+  "awesome-azd-governance-rules.md",
+  "awesome-azd-discoverability-rules.md",
+  "awesome-azd-validation-rules.md",
+  "awesome-azd-metadata-rules.md",
+  "awesome-azd-submission-process-rules.md",
+  "awesome-azd-headings-rules.md",
+  "awesome-azd-security-rules.md",
+];
 
 function loadRules() {
   return MODULES.flatMap((name) => {
@@ -77,7 +89,14 @@ describe("catalog provenance", () => {
         if (finding.status === "FAIL") assert.ok(finding.remediation);
         if (finding.status === "UNABLE TO DETERMINE" || finding.id === "AZD-AWESOME-007") assert.ok(finding.reconciliation_criteria);
       }
-      const files = ["core-azd-rules.md", "policy-sources.md", ...(profile === "public-awesome-azd" ? ["awesome-azd-rules.md", ...MODULES.slice(1)] : [])];
+      const files = [
+        "core-evaluation-terms.md",
+        "policy-sources.md",
+        ...(profile === "core-only" ? MODULES.slice(0, 3) : [
+          "awesome-azd-rules.md",
+          ...MODULES,
+        ]),
+      ];
       const bytes = files.reduce((total, name) => total + fs.readFileSync(path.join(REFERENCES, name)).length, 0);
       assert.ok(Buffer.byteLength(JSON.stringify(result, null, 2)) < bytes, `Payload for ${profile} did not reduce reference bytes`);
     }
